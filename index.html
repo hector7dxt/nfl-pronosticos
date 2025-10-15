@@ -221,6 +221,8 @@
 
   <label><strong>Selecciona semana (Pronósticos): Se cierra Jueves a medio dia</strong></label> <br>
   <label><strong><a href="tabgoogle.html">Enlace a hoja de pronóstico </a></strong></label> <br>
+  <br><br>
+  <br><br>
   <select id="semanaSelect" onchange="cargarSemana()"> 
     <option value="1">Semana 1 CERRADA</option>
     <option value="2">Semana 2 CERRADA</option>
@@ -228,7 +230,7 @@
     <option value="4">Semana 4 CERRADA</option>
     <option value="5">Semana 5 CERRADA</option>
     <option value="6">Semana 6 CERRADA</option>
-    <option value="6">Semana 7 EN CURSO</option>
+    <option value="7">Semana 7 EN CURSO</option>
   </select>
   
   <div class="contenedor-principal">
@@ -245,7 +247,7 @@
                     <option value="4">Semana 4</option>
                     <option value="5">Semana 5</option>
                     <option value="6">Semana 6</option>
-                    <option value="6">Semana 7</option>
+                    <option value="7">Semana 7</option>
                   </select>
               </div>
               <div id="resultadosList">
@@ -254,6 +256,8 @@
           
           <div class="records-box">
               <h2>Récord General (Ganados-Perdidos)</h2>
+            <h2>En la semana 4 Cowboys y Packers empataron.</h2>
+            <h2>El marcador no lo cuenta.</h2>
               <table class="records-table">
                   <thead>
                       <tr>
@@ -541,21 +545,21 @@
             { equipo1: "Jaguars", score1: 31, equipo2: "Chiefs", score2: 28 },
           ],
       6: [
-            { equipo1: "Giants", score1: 00, equipo2: "Eagles", score2: 00 },
-            { equipo1: "Jets", score1: 00, equipo2: "Broncos", score2: 00 },
-            { equipo1: "Ravens", score1: 00, equipo2: "Rams", score2: 00 },
-            { equipo1: "Panthers", score1: 00, equipo2: "Cowboys", score2: 00 },
-            { equipo1: "Colts", score1: 00, equipo2: "Cardinals", score2: 00 },
-            { equipo1: "Jaguars", score1: 00, equipo2: "Seahawks", score2: 00 },
-            { equipo1: "Dolphins", score1: 00, equipo2: "Chargers", score2: 00 },
-            { equipo1: "Saints", score1: 00, equipo2: "Patriots", score2: 00 },
-            { equipo1: "Steelers", score1: 00, equipo2: "Browns", score2: 00 },
-            { equipo1: "Raiders", score1: 00, equipo2: "Titans", score2: 00 },
-            { equipo1: "Packers", score1: 00, equipo2: "Bengals", score2: 00 },
-            { equipo1: "Buccaneers", score1: 00, equipo2: "49ers", score2: 00 },
-            { equipo1: "Chiefs", score1: 00, equipo2: "Lions", score2: 00 },
-            { equipo1: "Falcons", score1: 00, equipo2: "Bills", score2: 00 },
-            { equipo1: "Commanders", score1: 00, equipo2: "Bears", score2: 00 },
+            { equipo1: "Giants", score1: 34, equipo2: "Eagles", score2: 17 },
+            { equipo1: "Jets", score1: 11, equipo2: "Broncos", score2: 13 },
+            { equipo1: "Ravens", score1: 3, equipo2: "Rams", score2: 17 },
+            { equipo1: "Panthers", score1: 30, equipo2: "Cowboys", score2: 27 },
+            { equipo1: "Colts", score1: 31, equipo2: "Cardinals", score2: 27 },
+            { equipo1: "Jaguars", score1: 12, equipo2: "Seahawks", score2: 20 },
+            { equipo1: "Dolphins", score1: 27, equipo2: "Chargers", score2: 29 },
+            { equipo1: "Saints", score1: 19, equipo2: "Patriots", score2: 25 },
+            { equipo1: "Steelers", score1: 23, equipo2: "Browns", score2: 9 },
+            { equipo1: "Raiders", score1: 20, equipo2: "Titans", score2: 10 },
+            { equipo1: "Packers", score1: 27, equipo2: "Bengals", score2: 18 },
+            { equipo1: "Buccaneers", score1: 30, equipo2: "49ers", score2: 19 },
+            { equipo1: "Chiefs", score1: 30, equipo2: "Lions", score2: 17 },
+            { equipo1: "Falcons", score1: 24, equipo2: "Bills", score2: 14 },
+            { equipo1: "Commanders", score1: 24, equipo2: "Bears", score2: 25 },
           ],
       7:[
   { equipo1: "Bengals", score1: 00, equipo2: "Steelers", score2: 00 },
@@ -789,6 +793,7 @@
 </body>
 
 </html>
+
 
 
 
