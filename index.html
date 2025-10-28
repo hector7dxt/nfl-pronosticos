@@ -6,7 +6,7 @@
   <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
   <script>
     (function(){
-      emailjs.init("bN1z0hPEzhuurAXga"); // Public Key de EmailJS
+      emailjs.init("bN1z0hPEzhuurAXga"); llave publica de mailJS
     })();
   </script>
   <style>
@@ -122,7 +122,7 @@
         border-collapse: collapse;
     }
     .records-table th, .records-table td {
-        padding: 8px;
+        padding: 8px 4px; /* Ajuste para la nueva columna */
         border: 1px solid #ddd;
         text-align: center;
     }
@@ -135,7 +135,7 @@
     }
 
 
-    /* Estilos del campo de nombre y el botón de envío */
+    /* Estilos del selector de nombre y el botón de envío */
     .input-nombre-container {
         width: 100%;
         max-width: 700px;
@@ -143,13 +143,15 @@
         padding: 0 20px; 
     }
 
-    .input-nombre {
+    /* Estilo del selector desplegable */
+    #nombreUsuarioSelect {
         width: 100%;
         padding: 10px;
         margin-bottom: 10px;
         border: 1px solid #ccc;
         border-radius: 8px;
         box-sizing: border-box; 
+        font-size: 1em;
     }
     
     button#enviarBtn {
@@ -221,17 +223,16 @@
 
   <label><strong>Selecciona semana (Pronósticos): Se cierra Jueves a medio dia</strong></label> <br>
   <label><strong><a href="tabgoogle.html">Enlace a hoja de pronóstico </a></strong></label> <br>
-  <br><br>
-  <br><br>
   <select id="semanaSelect" onchange="cargarSemana()"> 
-    <option value="1">Semana 1 CERRADA</option>
+      <option value="1">Semana 1 CERRADA</option>
     <option value="2">Semana 2 CERRADA</option>
     <option value="3">Semana 3 CERRADA</option>
     <option value="4">Semana 4 CERRADA</option>
     <option value="5">Semana 5 CERRADA</option>
     <option value="6">Semana 6 CERRADA</option>
     <option value="7">Semana 7 CERRADA</option>
-    <option value="8">Semana 8 EN CURSO</option>
+    <option value="8">Semana 8 CERRADA</option>
+    <option value="9">Semana 9 EN CURSO</option>
   </select>
   
   <div class="contenedor-principal">
@@ -250,6 +251,7 @@
                     <option value="6">Semana 6</option>
                     <option value="7">Semana 7</option>
                     <option value="8">Semana 8</option>
+                    <option value="9">Semana 9</option>
                   </select>
               </div>
               <div id="resultadosList">
@@ -257,16 +259,14 @@
           </div>
           
           <div class="records-box">
-              <h2>Récord General (Ganados-Perdidos)</h2>
-            <h2>En la semana 4 Cowboys y Packers empataron.</h2>
-            <h2>El marcador no lo cuenta.</h2>
+              <h2>Récord General (Ganados-Perdidos-Empates)</h2>
               <table class="records-table">
                   <thead>
                       <tr>
                           <th>Equipo</th>
                           <th>G</th>
                           <th>P</th>
-                      </tr>
+                          <th>E</th> </tr>
                   </thead>
                   <tbody id="recordsTableBody">
                       </tbody>
@@ -280,8 +280,9 @@
   </div>
 
   <div class="input-nombre-container">
-    <label for="nombreUsuario"><strong>Tu Nombre:</strong></label>
-    <input type="text" id="nombreUsuario" class="input-nombre" required placeholder="Introduce tu nombre aquí">
+    <label for="nombreUsuarioSelect"><strong>Tu Nombre:</strong></label>
+    <select id="nombreUsuarioSelect" required>
+        </select>
     <button id="enviarBtn" onclick="guardarPronosticos()">Enviar Pronósticos</button>
   </div>
 
@@ -297,6 +298,19 @@
   </table>
 
   <script>
+    const listaUsuarios = [
+        "Selecciona tu nombre",
+        "Javier",
+        "Jorge",
+        "Zeus",
+        "Marco",
+        "Carlos",
+        "Héctor",
+        "Juan",
+        "Edgar",
+        "Robert"
+    ];
+
     const logos = {
   Cowboys: "https://a.espncdn.com/i/teamlogos/nfl/500/dal.png",
   "49ers": "https://a.espncdn.com/i/teamlogos/nfl/500/sf.png",
@@ -334,7 +348,7 @@
 
     const semanas = {
       1: [
-        ["Cowboys", "Eagles"],
+        ["Cowboys", "Eagles", "Domingo por la noche"],
         ["Chiefs", "Chargers"],
         ["Buccaneers", "Falcons"],
         ["Bengals", "Browns"],
@@ -352,124 +366,140 @@
         ["Bears", "Vikings"],
         ],
       2: [
-  ["Packers", "Commanders"],            
-  ["Ravens", "Browns"],          
-  ["Bengals", "Jaguars"],       
-  ["Cowboys", "Giants"],          
-  ["Lions", "Bears"],          
-  ["Dolphins", "Patriots"],         
-  ["Saints", "49ers"],        
-  ["Jets", "Bills"],        
-  ["Steelers", "Seahawks"],       
-  ["Titans", "Rams"],           
-  ["Cardinals", "Panthers"],         
-  ["Colts", "Broncos"],           
-  ["Chiefs", "Eagles"],             
-  ["Vikings", "Falcons"],            
-  ["Texans", "Buccaneers"],            
-  ["Raiders", "Chargers"]            
-],
-      3: [
-  ["Bills", "Dolphins"],
-  ["Panthers", "Falcons"],
-  ["Browns", "Packers"],
-  ["Jaguars", "Texans"],
-  ["Vikings", "Bengals"],
-  ["Patriots", "Steelers"],
-  ["Eagles", "Rams"],
-  ["Buccaneers", "Jets"],
-  ["Titans", "Colts"],
-  ["Commanders", "Raiders"],
-  ["Chargers", "Broncos"],
-  ["Seahawks", "Saints"],
-  ["Bears", "Cowboys"],
-  ["Cardinals", "49ers"],
-  ["Giants", "Chiefs"],
-  ["Ravens", "Lions"]
-],
-4: [
-  ["Seahawks", "Cardinals"],
-  ["Vikings", "Steelers"],
-  ["Commanders", "Falcons"],
-  ["Saints", "Bills"],
-  ["Browns", "Lions"],
-  ["Titans", "Texans"],
-  ["Panthers", "Patriots"],
-  ["Chargers", "Giants"],
-  ["Eagles", "Buccaneers"],
-  ["Colts", "Rams"],
-  ["Jaguars", "49ers"],
-  ["Ravens", "Chiefs"],
-  ["Bears", "Raiders"],
-  ["Packers", "Cowboys"],
-  ["Jets", "Dolphins"],
-  ["Bengals", "Broncos"]
-],
-5: [
-   ["Rams", "49ers"],             
-  ["Browns", "Vikings"],         
-  ["Eagles", "Broncos"],         
-  ["Jets", "Cowboys"],           
-  ["Colts", "Raiders"],          
-  ["Panthers", "Dolphins"],      
-  ["Saints", "Giants"],          
-  ["Ravens", "Texans"],          
-  ["Seahawks", "Buccaneers"],    
-  ["Cardinals", "Titans"],       
-  ["Chargers", "Commanders"],    
-  ["Bengals", "Lions"],          
-  ["Bills", "Patriots"],         
-  ["Jaguars", "Chiefs"]        
-],
-      6: [
-   ["Giants", "Eagles"],             
-  ["Jets", "Broncos"],         
-  ["Ravens", "Rams"],         
-  ["Panthers", "Cowboys"],           
-  ["Colts", "Cardinals"],          
-  ["Jaguars", "Seahawks"],      
-  ["Dolphins", "Chargers"],          
-  ["Saints", "Patriots"],          
-  ["Steelers", "Browns"],    
-  ["Raiders", "Titans"],       
-  ["Packers", "Bengals"],    
-  ["Buccaneers", "49ers"],          
-  ["Chiefs", "Lions"],         
-  ["Falcons", "Bills"],
-  ["Commanders", "Bears"]     
-],
-      7: [
-   ["Bengals", "Steelers"],             
-  ["Jaguars", "Rams"],         
-  ["Bears", "Saints"],         
-  ["Browns", "Dolphins"],           
-  ["Chiefs", "Raiders"],          
-  ["Vikings", "Eagles"],      
-  ["Jets", "Panthers"],          
-  ["Titans", "Patriots"],          
-  ["Broncos", "Giants"],    
-  ["Chargers", "Colts"],       
-  ["Cardinals", "Packers"],    
-  ["Cowboys", "Commanders"],          
-  ["49ers", "Falcons"],         
-  ["Lions", "Buccaneers"],
-  ["Seahawks", "Texans"]     
-],
-      8: [
-   ["Chargers", "Vikings"],             
-  ["Falcons", "Dolphins"],         
-  ["Ravens", "Bears"],         
-  ["Panthers", "Bills"],           
-  ["Bengals", "Jets"],          
-  ["Texans", "49ers"],      
-  ["Patriots", "Browns"],          
-  ["Eagles", "Giants"],          
-  ["Saints", "Buccaneers"],    
-  ["Broncos", "Cowboys"],       
-  ["Colts", "Titans"],    
-  ["Steelers", "Packers"],          
-  ["Chiefs", "Commanders"]            
-]
+        ["Packers", "Commanders"],            
+        ["Ravens", "Browns"],          
+        ["Bengals", "Jaguars"],       
+        ["Cowboys", "Giants"],          
+        ["Lions", "Bears"],          
+        ["Dolphins", "Patriots"],         
+        ["Saints", "49ers"],        
+        ["Jets", "Bills"],        
+        ["Steelers", "Seahawks"],       
+        ["Titans", "Rams"],           
+        ["Cardinals", "Panthers"],         
+        ["Colts", "Broncos"],           
+        ["Chiefs", "Eagles"],             
+        ["Vikings", "Falcons"],            
+        ["Texans", "Buccaneers"],            
+        ["Raiders", "Chargers"]            
+        ],
+            3: [
+        ["Bills", "Dolphins"],
+        ["Panthers", "Falcons"],
+        ["Browns", "Packers"],
+        ["Jaguars", "Texans"],
+        ["Vikings", "Bengals"],
+        ["Patriots", "Steelers"],
+        ["Eagles", "Rams"],
+        ["Buccaneers", "Jets"],
+        ["Titans", "Colts"],
+        ["Commanders", "Raiders"],
+        ["Chargers", "Broncos"],
+        ["Seahawks", "Saints"],
+        ["Bears", "Cowboys"],
+        ["Cardinals", "49ers"],
+        ["Giants", "Chiefs"],
+        ["Ravens", "Lions"]
+        ],
+        4: [
+        ["Seahawks", "Cardinals"],
+        ["Vikings", "Steelers"],
+        ["Commanders", "Falcons"],
+        ["Saints", "Bills"],
+        ["Browns", "Lions"],
+        ["Titans", "Texans"],
+        ["Panthers", "Patriots"],
+        ["Chargers", "Giants"],
+        ["Eagles", "Buccaneers"],
+        ["Colts", "Rams"],
+        ["Jaguars", "49ers"],
+        ["Ravens", "Chiefs"],
+        ["Bears", "Raiders"],
+        ["Packers", "Cowboys"],
+        ["Jets", "Dolphins"],
+        ["Bengals", "Broncos"]
+        ],
+        5: [
+        ["Rams", "49ers"],             
+        ["Browns", "Vikings"],         
+        ["Eagles", "Broncos"],         
+        ["Jets", "Cowboys"],           
+        ["Colts", "Raiders"],          
+        ["Panthers", "Dolphins"],      
+        ["Saints", "Giants"],          
+        ["Ravens", "Texans"],          
+        ["Seahawks", "Buccaneers"],    
+        ["Cardinals", "Titans"],       
+        ["Chargers", "Commanders"],    
+        ["Bengals", "Lions"],          
+        ["Bills", "Patriots"],         
+        ["Jaguars", "Chiefs"]        
+        ],
+            6: [
+        ["Giants", "Eagles"],             
+        ["Jets", "Broncos"],         
+        ["Ravens", "Rams"],         
+        ["Panthers", "Cowboys"],           
+        ["Colts", "Cardinals"],          
+        ["Jaguars", "Seahawks"],      
+        ["Dolphins", "Chargers"],          
+        ["Saints", "Patriots"],          
+        ["Steelers", "Browns"],    
+        ["Raiders", "Titans"],       
+        ["Packers", "Bengals"],    
+        ["Buccaneers", "49ers"],          
+        ["Chiefs", "Lions"],         
+        ["Falcons", "Bills"],
+        ["Commanders", "Bears"]     
+        ],
+            7: [
+        ["Bengals", "Steelers"],             
+        ["Jaguars", "Rams"],         
+        ["Bears", "Saints"],         
+        ["Browns", "Dolphins"],           
+        ["Chiefs", "Raiders"],          
+        ["Vikings", "Eagles"],      
+        ["Jets", "Panthers"],          
+        ["Titans", "Patriots"],          
+        ["Broncos", "Giants"],    
+        ["Chargers", "Colts"],       
+        ["Cardinals", "Packers"],    
+        ["Cowboys", "Commanders"],          
+        ["49ers", "Falcons"],         
+        ["Lions", "Buccaneers"],
+        ["Seahawks", "Texans"]     
+        ],
+            8: [
+        ["Chargers", "Vikings"],             
+        ["Falcons", "Dolphins"],         
+        ["Ravens", "Bears"],         
+        ["Panthers", "Bills"],           
+        ["Bengals", "Jets"],          
+        ["Texans", "49ers"],      
+        ["Patriots", "Browns"],          
+        ["Eagles", "Giants"],          
+        ["Saints", "Buccaneers"],    
+        ["Broncos", "Cowboys"],       
+        ["Colts", "Titans"],    
+        ["Steelers", "Packers"],          
+        ["Chiefs", "Commanders"]            
+        ],
+            9: [
+        ["Dolphins", "Ravens"],             
+        ["Bengals", "Bears"],         
+        ["Lions", "Vikings"],         
+        ["Packers", "Panthers"],           
+        ["Texans", "Broncos"],          
+        ["Patriots", "Falcons"],      
+        ["Giants", "49ers"],          
+        ["Steelers", "Colts"],          
+        ["Titans", "Chargers"],    
+        ["Raiders", "Jaguars"],       
+        ["Rams", "Saints"],    
+        ["Bills", "Chiefs"],          
+        ["Commanders", "Seahawks"],
+        ["Cowboys", "Cardinals"]          
+        ]
     };
 
     const resultados = {
@@ -523,7 +553,7 @@
             { equipo1: "Chargers", score1: 23, equipo2: "Broncos", score2: 20 },
             { equipo1: "Seahawks", score1: 44, equipo2: "Saints", score2: 13 },
             { equipo1: "Bears", score1: 31, equipo2: "Cowboys", score2: 14 },
-            { equipo1: "Cardinals", score1: 16, equipo2: "49ers", score2: 15 },
+            { equipo1: "Cardinals", score1: 15, equipo2: "49ers", score2: 16 },
             { equipo1: "Giants", score1: 9, equipo2: "Chiefs", score2: 22 },
             { equipo1: "Ravens", score1: 30, equipo2: "Lions", score2: 38 },
           ],
@@ -579,44 +609,61 @@
             { equipo1: "Commanders", score1: 24, equipo2: "Bears", score2: 25 },
           ],
       7:[
-  { equipo1: "Bengals", score1: 33, equipo2: "Steelers", score2: 31 },
-  { equipo1: "Jaguars", score1: 07, equipo2: "Rams", score2: 35 },
-  { equipo1: "Bears", score1: 26, equipo2: "Saints", score2: 14 },
-  { equipo1: "Browns", score1: 31, equipo2: "Dolphins", score2: 06 },
-  { equipo1: "Chiefs", score1: 31, equipo2: "Raiders", score2: 00 },
-  { equipo1: "Vikings", score1: 22, equipo2: "Eagles", score2: 28 },
-  { equipo1: "Jets", score1: 6, equipo2: "Panthers", score2: 13 },
-  { equipo1: "Titans", score1: 13, equipo2: "Patriots", score2: 31 },
-  { equipo1: "Broncos", score1: 33, equipo2: "Giants", score2: 32 },
-  { equipo1: "Chargers", score1: 24, equipo2: "Colts", score2: 38 },
-  { equipo1: "Cardinals", score1: 23, equipo2: "Packers", score2: 27 },
-  { equipo1: "Cowboys", score1: 44, equipo2: "Commanders", score2: 22 },
-  { equipo1: "49ers", score1: 20, equipo2: "Falcons", score2: 10 },
-  { equipo1: "Lions", score1: 24, equipo2: "Buccaneers", score2: 09 },
-  { equipo1: "Seahawks", score1: 00, equipo2: "Texans", score2: 00 },
-],
-      8: [
-  { equipo1: "Chargers", score1: 00, equipo2: "Vikings", score2: 00 },
-  { equipo1: "Falcons", score1: 00, equipo2: "Dolphins", score2: 00 },
-  { equipo1: "Ravens", score1: 00, equipo2: "Bears", score2: 00 },
-  { equipo1: "Panthers", score1: 00, equipo2: "Bills", score2: 00 },
-  { equipo1: "Bengals", score1: 00, equipo2: "Jets", score2: 00 },
-  { equipo1: "Texans", score1: 00, equipo2: "49ers", score2: 00 },
-  { equipo1: "Patriots", score1: 00, equipo2: "Browns", score2: 00 },
-  { equipo1: "Eagles", score1: 00, equipo2: "Giants", score2: 00 },
-  { equipo1: "Saints", score1: 00, equipo2: "Buccaneers", score2: 00 },
-  { equipo1: "Broncos", score1: 00, equipo2: "Cowboys", score2: 00 },
-  { equipo1: "Colts", score1: 00, equipo2: "Titans", score2: 00 },
-  { equipo1: "Steelers", score1: 00, equipo2: "Packers", score2: 00 },
-  { equipo1: "Chiefs", score1: 00, equipo2: "Commanders", score2: 00 },
-]
+            { equipo1: "Bengals", score1: 33, equipo2: "Steelers", score2: 31 },
+            { equipo1: "Jaguars", score1: 7, equipo2: "Rams", score2: 35 },
+            { equipo1: "Bears", score1: 26, equipo2: "Saints", score2: 14 },
+            { equipo1: "Browns", score1: 31, equipo2: "Dolphins", score2: 6 },
+            { equipo1: "Chiefs", score1: 31, equipo2: "Raiders", score2: 0 },
+            { equipo1: "Vikings", score1: 22, equipo2: "Eagles", score2: 28 },
+            { equipo1: "Jets", score1: 6, equipo2: "Panthers", score2: 13 },
+            { equipo1: "Titans", score1: 13, equipo2: "Patriots", score2: 31 },
+            { equipo1: "Broncos", score1: 33, equipo2: "Giants", score2: 32 },
+            { equipo1: "Chargers", score1: 24, equipo2: "Colts", score2: 38 },
+            { equipo1: "Cardinals", score1: 23, equipo2: "Packers", score2: 27 },
+            { equipo1: "Cowboys", score1: 44, equipo2: "Commanders", score2: 22 },
+            { equipo1: "49ers", score1: 20, equipo2: "Falcons", score2: 10 },
+            { equipo1: "Lions", score1: 24, equipo2: "Buccaneers", score2: 9 },
+            { equipo1: "Seahawks", score1: 27, equipo2: "Texans", score2: 19 },
+            ],
+                8: [
+            { equipo1: "Chargers", score1: 37, equipo2: "Vikings", score2: 10 },
+            { equipo1: "Falcons", score1: 10, equipo2: "Dolphins", score2: 34 },
+            { equipo1: "Ravens", score1: 30, equipo2: "Bears", score2: 16 },
+            { equipo1: "Panthers", score1: 9, equipo2: "Bills", score2: 40 },
+            { equipo1: "Bengals", score1: 38, equipo2: "Jets", score2: 39 },
+            { equipo1: "Texans", score1: 26, equipo2: "49ers", score2: 15 },
+            { equipo1: "Patriots", score1: 32, equipo2: "Browns", score2: 13 },
+            { equipo1: "Eagles", score1: 38, equipo2: "Giants", score2: 20 },
+            { equipo1: "Saints", score1: 3, equipo2: "Buccaneers", score2: 23 },
+            { equipo1: "Broncos", score1: 44, equipo2: "Cowboys", score2: 24 },
+            { equipo1: "Colts", score1: 38, equipo2: "Titans", score2: 14 },
+            { equipo1: "Steelers", score1: 25, equipo2: "Packers", score2: 35 },
+            { equipo1: "Chiefs", score1: 28, equipo2: "Commanders", score2: 7 },
+            ],
+            9: [
+            
+            ]
     };
 
     const formulario = document.getElementById("formulario");
     const resultadosList = document.getElementById("resultadosList");
     const recordsTableBody = document.getElementById("recordsTableBody");
     const resultadosSelect = document.getElementById("resultadosSelect");
-    const nombreUsuarioInput = document.getElementById("nombreUsuario");
+    const nombreUsuarioSelect = document.getElementById("nombreUsuarioSelect"); 
+
+
+    function cargarUsuarios() {
+        listaUsuarios.forEach((nombre, index) => {
+            const option = document.createElement("option");
+            option.textContent = nombre;
+            option.value = index === 0 ? "" : nombre; 
+            if (index === 0) {
+                option.disabled = true;
+                option.selected = true;
+            }
+            nombreUsuarioSelect.appendChild(option);
+        });
+    }
 
     function cargarSemana() {
       const semanaSeleccionada = document.getElementById("semanaSelect").value;
@@ -647,7 +694,6 @@
     }
 
     function cargarResultados() {
-        // Carga los resultados detallados por semana
         const semanaSeleccionada = resultadosSelect.value;
         const listaResultados = resultados[semanaSeleccionada] || [];
         
@@ -663,19 +709,24 @@
             
             const ganador1 = score1 > score2;
             const ganador2 = score2 > score1;
+            const empate = score1 === score2; // 
 
             const resultadoDiv = document.createElement("div");
             resultadoDiv.classList.add("partido-resultado");
             
+            // Si es empate, no resalta el color azul
+            const color1 = ganador1 ? '#2563eb' : (empate ? '#6b7280' : '#1f2937');
+            const color2 = ganador2 ? '#2563eb' : (empate ? '#6b7280' : '#1f2937');
+            const scoreColor = (ganador1 || ganador2) ? '#2563eb' : (empate ? '#059669' : '#6b7280'); 
+
             resultadoDiv.innerHTML = `
-                <div class="equipo-res" style="color: ${ganador1 ? '#2563eb' : '#1f2937'};">
+                <div class="equipo-res" style="color: ${color1};">
                     <img class="logo-res" src="${logos[equipo1]}" alt="${equipo1}">
                     ${equipo1}
                 </div>
-                <div class="score" style="color: ${ganador1 ? '#2563eb' : '#6b7280'};">${score1}</div>
-                <div class="vs-res">-</div>
-                <div class="score" style="color: ${ganador2 ? '#2563eb' : '#6b7280'};">${score2}</div>
-                <div class="equipo-res" style="color: ${ganador2 ? '#2563eb' : '#1f2937'};">
+                <div class="score" style="color: ${scoreColor};">${score1}</div>
+                <div class="vs-res">${empate ? 'E' : '-'}</div> <div class="score" style="color: ${scoreColor};">${score2}</div>
+                <div class="equipo-res" style="color: ${color2};">
                     ${equipo2}
                     <img class="logo-res" src="${logos[equipo2]}" alt="${equipo2}">
                 </div>
@@ -684,10 +735,12 @@
         });
     }
     
+    // 💥 Función modificada para incluir Empates (E)
     function calcularRendimientoEquipos() {
         const records = {};
         Object.keys(logos).forEach(equipo => {
-            records[equipo] = { G: 0, P: 0 };
+            // 🆕 Inicializar Empates (E)
+            records[equipo] = { G: 0, P: 0, E: 0 }; 
         });
 
         Object.values(resultados).flat().forEach(res => {
@@ -699,6 +752,10 @@
             } else if (score2 > score1) {
                 records[equipo2].G += 1;
                 records[equipo1].P += 1;
+            } else {
+                // 🆕 Contar Empates
+                records[equipo1].E += 1;
+                records[equipo2].E += 1;
             }
         });
 
@@ -706,9 +763,17 @@
             equipo: equipo,
             G: records[equipo].G,
             P: records[equipo].P,
+            E: records[equipo].E, 
         }));
         
+        
         recordsArray.sort((a, b) => {
+            const puntosA = a.G * 2 + a.E;
+            const puntosB = b.G * 2 + b.E;
+
+            if (puntosB !== puntosA) {
+                return puntosB - puntosA; 
+            }
             if (b.G !== a.G) {
                 return b.G - a.G; 
             }
@@ -717,7 +782,7 @@
 
         recordsTableBody.innerHTML = "";
         recordsArray.forEach(record => {
-            if (record.G + record.P > 0) {
+            if (record.G + record.P + record.E > 0) { 
                 const fila = document.createElement("tr");
                 fila.innerHTML = `
                     <td>
@@ -726,7 +791,7 @@
                     </td>
                     <td>${record.G}</td>
                     <td>${record.P}</td>
-                `;
+                    <td>${record.E}</td> `;
                 recordsTableBody.appendChild(fila);
             }
         });
@@ -734,20 +799,17 @@
 
     function guardarPronosticos() {
         const semanaSeleccionada = document.getElementById("semanaSelect").value;
-        const nombreDelUsuario = nombreUsuarioInput.value.trim();
+        const nombreDelUsuario = nombreUsuarioSelect.value;
         const tabla = document.getElementById("tablaPronosticos");
         const tbody = tabla.querySelector("tbody");
         tbody.innerHTML = "";
 
         if (nombreDelUsuario === "") {
-            alert("Por favor, introduce tu nombre antes de enviar los pronósticos.");
-            nombreUsuarioInput.focus();
+            alert("Por favor, selecciona tu nombre de la lista antes de enviar los pronósticos.");
+            nombreUsuarioSelect.focus();
             return; 
         }
 
-        // === CORRECCIÓN APLICADA AQUÍ ===
-        // Generamos el HTML completo de la tabla para enviarlo, 
-        // pero EmailJS se encargará de insertarlo y formatearlo correctamente.
         let resumenHTML = `
             <table>
                 <thead>
@@ -773,7 +835,6 @@
                 todosPronosticados = false;
             }
 
-            // Agrega la fila a la tabla local
             const filaLocal = document.createElement("tr");
             filaLocal.innerHTML = `
                 <td>Semana ${semanaSeleccionada} - Partido ${i + 1}</td>
@@ -781,7 +842,6 @@
             `;
             tbody.appendChild(filaLocal);
 
-            // Agrega la fila al HTML del correo
             resumenHTML += `
             <tr>
                 <td style="border: 1px solid #ddd; padding: 8px;">Semana ${semanaSeleccionada} - Partido ${i + 1}</td>
@@ -794,7 +854,6 @@
                 </tbody>
             </table>
         `;
-        // ===================================
 
         tabla.style.display = "table";
 
@@ -818,12 +877,13 @@
         );
     }
 
+    // aqui carga los metodos
+    cargarUsuarios();
     cargarSemana();
     cargarResultados();
     calcularRendimientoEquipos(); 
   </script>
 </body>
-
 </html>
 
 
