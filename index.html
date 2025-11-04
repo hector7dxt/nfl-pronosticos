@@ -232,7 +232,8 @@
     <option value="6">Semana 6 CERRADA</option>
     <option value="7">Semana 7 CERRADA</option>
     <option value="8">Semana 8 CERRADA</option>
-    <option value="9">Semana 9 EN CURSO</option>
+    <option value="9">Semana 9 CERRADA</option>
+    <option value="10">Semana 10 EN CURSO</option>
   </select>
   
   <div class="contenedor-principal">
@@ -252,6 +253,7 @@
                     <option value="7">Semana 7</option>
                     <option value="8">Semana 8</option>
                     <option value="9">Semana 9</option>
+                    <option value="10">Semana 10</option>
                   </select>
               </div>
               <div id="resultadosList">
@@ -499,6 +501,22 @@
         ["Bills", "Chiefs"],          
         ["Commanders", "Seahawks"],
         ["Cowboys", "Cardinals"]          
+        ],
+      10: [
+        ["Broncos", "Raiders"],             
+        ["Colts", "Falcons"],         
+        ["Panthers", "Saints"],         
+        ["Bears", "Giants"],           
+        ["Texans", "Jaguars"],          
+        ["Dolphins", "Bills"],      
+        ["Vikings", "Ravens"],          
+        ["Jets", "Browns"],          
+        ["Buccaneers", "Patriots"],    
+        ["Seahawks", "Cardinals"],       
+        ["49ers", "Rams"],    
+        ["Commanders", "Lions"],          
+        ["Chargers", "Steelers"],
+        ["Packers", "Eagles"]          
         ]
     };
 
@@ -641,8 +659,22 @@
             { equipo1: "Chiefs", score1: 28, equipo2: "Commanders", score2: 7 },
             ],
             9: [
-            
-            ]
+            { equipo1: "Dolphins", score1: 6, equipo2: "Ravens", score2: 28 },
+            { equipo1: "Bengals", score1: 42, equipo2: "Bears", score2: 47 },
+            { equipo1: "Lions", score1: 24, equipo2: "Vikings", score2: 27 },
+            { equipo1: "Packers", score1: 13, equipo2: "Panthers", score2: 16 },
+            { equipo1: "Texans", score1: 15, equipo2: "Broncos", score2: 18 },
+            { equipo1: "Patriots", score1: 24, equipo2: "Falcons", score2: 23 },
+            { equipo1: "Giants", score1: 24, equipo2: "49ers", score2: 34 },
+            { equipo1: "Steelers", score1: 27, equipo2: "Colts", score2: 20 },
+            { equipo1: "Titans", score1: 20, equipo2: "Chargers", score2: 27 },
+            { equipo1: "Raiders", score1: 29, equipo2: "Jaguars", score2: 30 },
+            { equipo1: "Rams", score1: 34, equipo2: "Saints", score2: 10 },
+            { equipo1: "Bills", score1: 28, equipo2: "Chiefs", score2: 21 },
+            { equipo1: "Commanders", score1: 14, equipo2: "Seahawks", score2: 38 },
+            { equipo1: "Cowboys", score1: 0, equipo2: "Cardinals", score2: 10 },
+          ],
+            10:[]
     };
 
     const formulario = document.getElementById("formulario");
@@ -885,6 +917,7 @@
   </script>
 </body>
 </html>
+
 
 
 
