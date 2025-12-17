@@ -70,6 +70,57 @@
         font-size: 1.2em;
     }
     
+    /* 🆕 Estilos para las conferencias */
+    .conference-section {
+        margin-bottom: 25px;
+    }
+    
+    .conference-section:last-child {
+        margin-bottom: 0;
+    }
+    
+    .conference-header {
+        background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+        color: white;
+        padding: 10px 12px;
+        border-radius: 8px;
+        font-weight: bold;
+        font-size: 1.1em;
+        margin-bottom: 12px;
+        text-align: center;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+        letter-spacing: 1px;
+    }
+    
+    .conference-header.nfc {
+        background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    }
+    
+    /* 🆕 Estilos para las divisiones */
+    .division-section {
+        margin-bottom: 15px;
+    }
+    
+    .division-section:last-child {
+        margin-bottom: 0;
+    }
+    
+    .division-header {
+        background: #e5e7eb;
+        color: #1f2937;
+        padding: 6px 10px;
+        border-radius: 5px;
+        font-weight: bold;
+        font-size: 0.9em;
+        margin-bottom: 8px;
+        text-align: center;
+        border-left: 4px solid #2563eb;
+    }
+    
+    .nfc .division-header {
+        border-left: 4px solid #dc2626;
+    }
+    
     .selector-resultados-container {
         display: flex;
         flex-direction: column;
@@ -116,19 +167,22 @@
         margin: 0 4px; 
     }
 
-    /* Estilos para la tabla de rendimiento (G-P) */
+    /* Estilos para la tabla de rendimiento (G-P-E) */
     .records-table {
         width: 100%;
         border-collapse: collapse;
+        margin-bottom: 0;
     }
     .records-table th, .records-table td {
-        padding: 8px 4px; /* Ajuste para la nueva columna */
+        padding: 6px 4px;
         border: 1px solid #ddd;
         text-align: center;
+        font-size: 0.85em;
     }
     .records-table th {
-        background: #e5e7eb;
+        background: #f3f4f6;
         font-weight: bold;
+        font-size: 0.8em;
     }
     .records-table td:first-child {
         text-align: left;
@@ -237,9 +291,9 @@
     <option value="11">Semana 11 CERRADA</option>
     <option value="12">Semana 12 CERRADA</option>
     <option value="13">Semana 13 CERRADA</option> 
-    <option value="14">Semana 14 CERRADA</option> -->
-    <option value="15">Semana 15 EN CURSO</option>
-    <option value="16">Semana 16 CERRADA</option>
+    <option value="14">Semana 14 CERRADA</option> 
+    <option value="15">Semana 15 CERRADA</option>-->
+    <option value="16">Semana 16 EN CURSO</option>
     <option value="17">Semana 17 CERRADA</option>
     <option value="18">Semana 18 CERRADA</option>
   </select>
@@ -278,18 +332,145 @@
           </div>
           
           <div class="records-box">
-              <h2>Récord General (Ganados-Perdidos-Empates)</h2>
-              <table class="records-table">
-                  <thead>
-                      <tr>
-                          <th>Equipo</th>
-                          <th>G</th>
-                          <th>P</th>
-                          <th>E</th> </tr>
-                  </thead>
-                  <tbody id="recordsTableBody">
-                      </tbody>
-              </table>
+              <h2>Récord por Divisiones (G-P-E)</h2>
+              
+              <!-- 🆕 AFC -->
+              <div class="conference-section">
+                  <div class="conference-header afc">AFC</div>
+                  
+                  <!-- AFC Este -->
+                  <div class="division-section">
+                      <div class="division-header">ESTE</div>
+                      <table class="records-table">
+                          <thead>
+                              <tr>
+                                  <th>Equipo</th>
+                                  <th>G</th>
+                                  <th>P</th>
+                                  <th>E</th>
+                              </tr>
+                          </thead>
+                          <tbody id="recordsAFC_Este"></tbody>
+                      </table>
+                  </div>
+                  
+                  <!-- AFC Norte -->
+                  <div class="division-section">
+                      <div class="division-header">NORTE</div>
+                      <table class="records-table">
+                          <thead>
+                              <tr>
+                                  <th>Equipo</th>
+                                  <th>G</th>
+                                  <th>P</th>
+                                  <th>E</th>
+                              </tr>
+                          </thead>
+                          <tbody id="recordsAFC_Norte"></tbody>
+                      </table>
+                  </div>
+                  
+                  <!-- AFC Sur -->
+                  <div class="division-section">
+                      <div class="division-header">SUR</div>
+                      <table class="records-table">
+                          <thead>
+                              <tr>
+                                  <th>Equipo</th>
+                                  <th>G</th>
+                                  <th>P</th>
+                                  <th>E</th>
+                              </tr>
+                          </thead>
+                          <tbody id="recordsAFC_Sur"></tbody>
+                      </table>
+                  </div>
+                  
+                  <!-- AFC Oeste -->
+                  <div class="division-section">
+                      <div class="division-header">OESTE</div>
+                      <table class="records-table">
+                          <thead>
+                              <tr>
+                                  <th>Equipo</th>
+                                  <th>G</th>
+                                  <th>P</th>
+                                  <th>E</th>
+                              </tr>
+                          </thead>
+                          <tbody id="recordsAFC_Oeste"></tbody>
+                      </table>
+                  </div>
+              </div>
+              
+              <!-- 🆕 NFC -->
+              <div class="conference-section nfc">
+                  <div class="conference-header nfc">NFC</div>
+                  
+                  <!-- NFC Este -->
+                  <div class="division-section">
+                      <div class="division-header">ESTE</div>
+                      <table class="records-table">
+                          <thead>
+                              <tr>
+                                  <th>Equipo</th>
+                                  <th>G</th>
+                                  <th>P</th>
+                                  <th>E</th>
+                              </tr>
+                          </thead>
+                          <tbody id="recordsNFC_Este"></tbody>
+                      </table>
+                  </div>
+                  
+                  <!-- NFC Norte -->
+                  <div class="division-section">
+                      <div class="division-header">NORTE</div>
+                      <table class="records-table">
+                          <thead>
+                              <tr>
+                                  <th>Equipo</th>
+                                  <th>G</th>
+                                  <th>P</th>
+                                  <th>E</th>
+                              </tr>
+                          </thead>
+                          <tbody id="recordsNFC_Norte"></tbody>
+                      </table>
+                  </div>
+                  
+                  <!-- NFC Sur -->
+                  <div class="division-section">
+                      <div class="division-header">SUR</div>
+                      <table class="records-table">
+                          <thead>
+                              <tr>
+                                  <th>Equipo</th>
+                                  <th>G</th>
+                                  <th>P</th>
+                                  <th>E</th>
+                              </tr>
+                          </thead>
+                          <tbody id="recordsNFC_Sur"></tbody>
+                      </table>
+                  </div>
+                  
+                  <!-- NFC Oeste -->
+                  <div class="division-section">
+                      <div class="division-header">OESTE</div>
+                      <table class="records-table">
+                          <thead>
+                              <tr>
+                                  <th>Equipo</th>
+                                  <th>G</th>
+                                  <th>P</th>
+                                  <th>E</th>
+                              </tr>
+                          </thead>
+                          <tbody id="recordsNFC_Oeste"></tbody>
+                      </table>
+                  </div>
+              </div>
           </div>
 
       </div>
@@ -329,6 +510,22 @@
         "Edgar",
         "Robert"
     ];
+
+    // 🆕 Clasificación completa por divisiones
+    const divisiones = {
+        AFC: {
+            Este: ["Bills", "Dolphins", "Patriots", "Jets"],
+            Norte: ["Ravens", "Steelers", "Browns", "Bengals"],
+            Sur: ["Texans", "Colts", "Titans", "Jaguars"],
+            Oeste: ["Chiefs", "Chargers", "Broncos", "Raiders"]
+        },
+        NFC: {
+            Este: ["Eagles", "Cowboys", "Commanders", "Giants"],
+            Norte: ["Lions", "Vikings", "Packers", "Bears"],
+            Sur: ["Buccaneers", "Falcons", "Saints", "Panthers"],
+            Oeste: ["49ers", "Seahawks", "Rams", "Cardinals"]
+        }
+    };
 
     const logos = {
   Cowboys: "https://a.espncdn.com/i/teamlogos/nfl/500/dal.png",
@@ -912,11 +1109,28 @@
     { equipo1: "Chiefs", score1: 10, equipo2: "Texans", score2: 20 },
     { equipo1: "Chargers", score1: 22, equipo2: "Eagles", score2: 19 }
   ],
+      15: [
+    { equipo1: "Buccaneers", score1: 28, equipo2: "Falcons", score2: 29 },
+    { equipo1: "Bears", score1: 31, equipo2: "Browns", score2: 3 },
+    { equipo1: "Bengals", score1: 0, equipo2: "Ravens", score2: 24 },
+    { equipo1: "Texans", score1: 40, equipo2: "Cardinals", score2: 20 },
+    { equipo1: "Jaguars", score1: 48, equipo2: "Jets", score2: 20 },
+    { equipo1: "Chiefs", score1: 13, equipo2: "Chargers", score2: 16 },
+    { equipo1: "Patriots", score1: 31, equipo2: "Bills", score2: 35 },
+    { equipo1: "Giants", score1: 21, equipo2: "Commanders", score2: 29 },
+    { equipo1: "Eagles", score1: 31, equipo2: "Raiders", score2: 0 },
+    { equipo1: "Broncos", score1: 34, equipo2: "Packers", score2: 26 },
+    { equipo1: "Rams", score1: 41, equipo2: "Lions", score2: 34 },
+    { equipo1: "Saints", score1: 20, equipo2: "Panthers", score2: 17 },
+    { equipo1: "49ers", score1: 37, equipo2: "Titans", score2: 24 },
+    { equipo1: "Seahawks", score1: 18, equipo2: "Colts", score2: 16 },
+    { equipo1: "Cowboys", score1: 26, equipo2: "Vikings", score2: 34 },
+    { equipo1: "Steelers", score1: 28, equipo2: "Dolphins", score2: 15 }
+  ],
     };
 
     const formulario = document.getElementById("formulario");
     const resultadosList = document.getElementById("resultadosList");
-    const recordsTableBody = document.getElementById("recordsTableBody");
     const resultadosSelect = document.getElementById("resultadosSelect");
     const nombreUsuarioSelect = document.getElementById("nombreUsuarioSelect"); 
 
@@ -978,12 +1192,11 @@
             
             const ganador1 = score1 > score2;
             const ganador2 = score2 > score1;
-            const empate = score1 === score2; // 
+            const empate = score1 === score2;
 
             const resultadoDiv = document.createElement("div");
             resultadoDiv.classList.add("partido-resultado");
             
-            // Si es empate, no resalta el color azul
             const color1 = ganador1 ? '#2563eb' : (empate ? '#6b7280' : '#1f2937');
             const color2 = ganador2 ? '#2563eb' : (empate ? '#6b7280' : '#1f2937');
             const scoreColor = (ganador1 || ganador2) ? '#2563eb' : (empate ? '#059669' : '#6b7280'); 
@@ -994,7 +1207,8 @@
                     ${equipo1}
                 </div>
                 <div class="score" style="color: ${scoreColor};">${score1}</div>
-                <div class="vs-res">${empate ? 'E' : '-'}</div> <div class="score" style="color: ${scoreColor};">${score2}</div>
+                <div class="vs-res">${empate ? 'E' : '-'}</div>
+                <div class="score" style="color: ${scoreColor};">${score2}</div>
                 <div class="equipo-res" style="color: ${color2};">
                     ${equipo2}
                     <img class="logo-res" src="${logos[equipo2]}" alt="${equipo2}">
@@ -1004,11 +1218,11 @@
         });
     }
     
-    // 💥 Función modificada para incluir Empates (E)
+    // 🆕 Función completamente rediseñada para divisiones
     function calcularRendimientoEquipos() {
+        // Calcular records
         const records = {};
         Object.keys(logos).forEach(equipo => {
-            // 🆕 Inicializar Empates (E)
             records[equipo] = { G: 0, P: 0, E: 0 }; 
         });
 
@@ -1022,21 +1236,13 @@
                 records[equipo2].G += 1;
                 records[equipo1].P += 1;
             } else {
-                // 🆕 Contar Empates
                 records[equipo1].E += 1;
                 records[equipo2].E += 1;
             }
         });
 
-        const recordsArray = Object.keys(records).map(equipo => ({
-            equipo: equipo,
-            G: records[equipo].G,
-            P: records[equipo].P,
-            E: records[equipo].E, 
-        }));
-        
-        
-        recordsArray.sort((a, b) => {
+        // Función de ordenamiento
+        const sortRecords = (a, b) => {
             const puntosA = a.G * 2 + a.E;
             const puntosB = b.G * 2 + b.E;
 
@@ -1047,23 +1253,51 @@
                 return b.G - a.G; 
             }
             return a.P - b.P; 
-        });
+        };
 
-        recordsTableBody.innerHTML = "";
-        recordsArray.forEach(record => {
-            if (record.G + record.P + record.E > 0) { 
-                const fila = document.createElement("tr");
-                fila.innerHTML = `
-                    <td>
-                        <img class="logo-res" src="${logos[record.equipo]}" alt="${record.equipo}" style="margin-right: 5px;">
-                        ${record.equipo}
-                    </td>
-                    <td>${record.G}</td>
-                    <td>${record.P}</td>
-                    <td>${record.E}</td> `;
-                recordsTableBody.appendChild(fila);
-            }
-        });
+        // 🆕 Función para renderizar una división
+        const renderDivision = (equipos, tbodyId) => {
+            const tbody = document.getElementById(tbodyId);
+            tbody.innerHTML = "";
+            
+            const divisionRecords = equipos.map(equipo => ({
+                equipo: equipo,
+                G: records[equipo].G,
+                P: records[equipo].P,
+                E: records[equipo].E
+            }));
+            
+            divisionRecords.sort(sortRecords);
+            
+            divisionRecords.forEach(record => {
+                if (record.G + record.P + record.E > 0) {
+                    const fila = document.createElement("tr");
+                    fila.innerHTML = `
+                        <td>
+                            <img class="logo-res" src="${logos[record.equipo]}" alt="${record.equipo}" style="margin-right: 5px;">
+                            ${record.equipo}
+                        </td>
+                        <td>${record.G}</td>
+                        <td>${record.P}</td>
+                        <td>${record.E}</td>
+                    `;
+                    tbody.appendChild(fila);
+                }
+            });
+        };
+
+        // 🆕 Renderizar todas las divisiones
+        // AFC
+        renderDivision(divisiones.AFC.Este, "recordsAFC_Este");
+        renderDivision(divisiones.AFC.Norte, "recordsAFC_Norte");
+        renderDivision(divisiones.AFC.Sur, "recordsAFC_Sur");
+        renderDivision(divisiones.AFC.Oeste, "recordsAFC_Oeste");
+        
+        // NFC
+        renderDivision(divisiones.NFC.Este, "recordsNFC_Este");
+        renderDivision(divisiones.NFC.Norte, "recordsNFC_Norte");
+        renderDivision(divisiones.NFC.Sur, "recordsNFC_Sur");
+        renderDivision(divisiones.NFC.Oeste, "recordsNFC_Oeste");
     }
 
     function guardarPronosticos() {
@@ -1146,7 +1380,7 @@
         );
     }
 
-    // aqui carga los metodos
+    // Inicialización
     cargarUsuarios();
     cargarSemana();
     cargarResultados();
@@ -1154,35 +1388,5 @@
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
